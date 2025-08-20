@@ -4,19 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { FormComponent } from './form-component/form-component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    App,
-    FormComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners()
-  ],
-  bootstrap: [App]
+  declarations: [App, FormComponent],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  providers: [provideBrowserGlobalErrorListeners()],
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}
