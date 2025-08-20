@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { avoidWord } from '../customValidation';
 
 @Component({
   selector: 'form-component',
@@ -27,7 +28,12 @@ export class FormComponent {
     this.loginForm = this.formBuilderInstance.group({
       email: [
         '',
-        [Validators.email, Validators.required, Validators.minLength(5)],
+        [
+          Validators.email,
+          Validators.required,
+          Validators.minLength(5),
+          avoidWord,
+        ],
       ],
       password: ['', [Validators.required, Validators.minLength(5)]],
       subscribe: false,

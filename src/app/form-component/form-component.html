@@ -19,6 +19,9 @@
       <div *ngIf="email?.errors?.['minlength']">
         Please type a minimum of 5 characters
       </div>
+      <div *ngIf="email?.errors?.['avoidWord']">
+        Please dont try hacking my system.
+      </div>
     </div>
     <!-- ? means optional chaining. It will return undefined if the property errors does not exist -->
     <pre>{{ email?.errors | json }}</pre>
