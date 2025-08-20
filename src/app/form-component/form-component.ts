@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'form-component',
@@ -8,23 +13,39 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrl: './form-component.css',
 })
 export class FormComponent {
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl(''),
-    subscribe: new FormControl(false),
-  });
+  loginForm!: FormGroup;
+
+  // loginForm: FormGroup = new FormGroup({
+  //   email: new FormControl(''),
+  //   password: new FormControl(''),
+  //   subscribe: new FormControl(false),
+  // });
 
   // We can use a FormBuilder instance via Dependency injection to create a form group
   constructor(private formBuilderInstance: FormBuilder) {
     // create a form group with two form controls: email, password, subscribe
-    // this.loginForm = this.formBuilderInstance.group({
-    //   email: '',
-    //   password: '',
-    //   subscribe: false,
-    // });
+    this.loginForm = this.formBuilderInstance.group({
+      email: [
+        '',
+        [Validators.email, Validators.required, Validators.minLength(5)],
+      ],
+      password: ['', [Validators.required, Validators.minLength(5)]],
+      subscribe: false,
+    });
+  }
+
+  // getter for loginFrom email formControl
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
   }
 }

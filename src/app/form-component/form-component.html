@@ -10,9 +10,18 @@
       aria-describedby="emailHelp"
       formControlName="email"
     />
-    <div id="emailHelp" class="form-text">
-      We'll never share your email with anyone else.
+    <div
+      *ngIf="email?.errors && email?.invalid && email?.touched"
+      class="text-danger"
+    >
+      <div *ngIf="email?.errors?.['required']">Email is required.</div>
+      <div *ngIf="email?.errors?.['email']">Email is invalid.</div>
+      <div *ngIf="email?.errors?.['minlength']">
+        Please type a minimum of 5 characters
+      </div>
     </div>
+    <!-- ? means optional chaining. It will return undefined if the property errors does not exist -->
+    <pre>{{ email?.errors | json }}</pre>
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
@@ -22,6 +31,16 @@
       id="password"
       formControlName="password"
     />
+  </div>
+  <div
+    *ngIf="password?.errors && password?.invalid && password?.touched"
+    class="text-danger"
+  >
+    <div *ngIf="password?.errors?.['required']">Password is required.</div>
+    <div *ngIf="password?.errors?.['password']">Password is invalid.</div>
+    <div *ngIf="password?.errors?.['minlength']">
+      Please type a minimum of 5 characters
+    </div>
   </div>
   <div class="mb-3 form-check">
     <input
@@ -34,7 +53,12 @@
       >Subscribe for our newsletter.</label
     >
   </div>
-  <button type="submit" class="btn btn-primary" (click)="onSubmit()">
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="loginForm.invalid"
+    (click)="onSubmit()"
+  >
     Submit
   </button>
 </form>
